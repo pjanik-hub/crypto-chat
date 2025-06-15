@@ -38,7 +38,7 @@ export default function SignIn() {
           >
             Sign in with GitHub
           </Button>
-          <Button
+          {/* <Button
             type="button"
             variant="outline"
             onClick={() =>
@@ -49,7 +49,7 @@ export default function SignIn() {
             style={{ width: "100%" }}
           >
             Sign in with Osu!
-          </Button>
+          </Button> */}
         </Flex>
       </Box>
     </span>
