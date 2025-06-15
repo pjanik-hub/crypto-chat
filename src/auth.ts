@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GitHub from "next-auth/providers/github";
 
 const providers = [
   Credentials({
@@ -8,18 +9,23 @@ const providers = [
       password: { label: "Password", type: "password" },
     },
 
-    authorize(credentials) {
-      if (
-        credentials.email !== "test@gmail.com" ||
-        credentials.password !== "test"
-      )
-        return null;
+    authorize() {
+      //   if (
+      //     credentials.email !== "test@gmail.com" ||
+      //     credentials.password !== "test"
+      //   )
+      //     return null;
 
-      return {
-        id: "test",
-        email: "test@gmail.com",
-      };
+      //   return {
+      //     id: "test",
+      //     email: "test@gmail.com",
+      //   };
+      return null;
     },
+  }),
+  GitHub({
+    clientId: process.env.GITHUB_ID!,
+    clientSecret: process.env.GITHUB_SECRET!,
   }),
 ];
 

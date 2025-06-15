@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,16 +28,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Theme
-          accentColor="violet"
-          grayColor="gray"
-          panelBackground="solid"
-          scaling="100%"
-          radius="full"
-          appearance="dark"
-        >
-          {children}
-        </Theme>
+        <SessionProvider>
+          <Theme
+            accentColor="violet"
+            grayColor="gray"
+            panelBackground="solid"
+            scaling="100%"
+            radius="full"
+            appearance="dark"
+          >
+            {children}
+          </Theme>
+        </SessionProvider>
       </body>
     </html>
   );

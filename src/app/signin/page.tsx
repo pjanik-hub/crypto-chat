@@ -106,6 +106,14 @@ export default function SignIn() {
                 Login
               </Button>
             </Flex>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => signIn("github")}
+              style={{ width: "100%" }}
+            >
+              Sign in with GitHub
+            </Button>
             <Text as="p" size="2" color="gray">
               Don&apos;t have an account?{" "}
               <Link
