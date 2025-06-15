@@ -17,7 +17,11 @@ export default function SignIn() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => signIn("google")}
+            onClick={() =>
+              signIn("google", {
+                redirectTo: "/",
+              })
+            }
             style={{ width: "100%" }}
           >
             Sign in with Google
@@ -25,7 +29,11 @@ export default function SignIn() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => signIn("github")}
+            onClick={() =>
+              signIn("github", {
+                redirectTo: "/",
+              })
+            }
             style={{ width: "100%" }}
           >
             Sign in with GitHub
@@ -33,7 +41,11 @@ export default function SignIn() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => signIn("osu")}
+            onClick={() =>
+              signIn("osu", {
+                redirectTo: "/",
+              })
+            }
             style={{ width: "100%" }}
           >
             Sign in with Osu!
