@@ -17,12 +17,11 @@
 
 .page input {
   width: 100%;
-  padding: 8px 12px;
+  padding: 4px 8px;
   margin-top: 4;
   border-radius: 12px;
-  border: 1px solid var(--color-background);
   font-size: 16;
-  margin-bottom: 8;
+  margin-bottom: 3;
 }
 
 @media (prefers-color-scheme: dark) {

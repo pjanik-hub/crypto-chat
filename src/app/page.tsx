@@ -2,8 +2,9 @@
 
 import styles from "./page.module.css";
 import { Button, Card, Flex, Separator, Text } from "@radix-ui/themes";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import UserCard from "../components/UserCard";
 // import Footer from "../components/Footer";
 
 export default function Home() {
@@ -21,14 +22,7 @@ export default function Home() {
           <Separator orientation="horizontal" size="4" />
           <Flex gap="4" justify="center">
             {session?.user ? (
-              <Flex gap="2" align="center">
-                <Text as="span">
-                  Welcome, {session.user.name || session.user.email}!
-                </Text>
-                <Button variant="outline" onClick={() => signOut()}>
-                  Logout
-                </Button>
-              </Flex>
+              <UserCard />
             ) : (
               <Link href="/signin">
                 <Button variant="outline">Login</Button>
@@ -45,15 +39,6 @@ export default function Home() {
               <Text as="p" size="3">
                 All messages are encrypted on your device and can only be read
                 by the intended recipient.
-              </Text>
-            </Card>
-            <Card style={{ minWidth: 220, maxWidth: 300 }}>
-              <Text as="p" weight="bold" size="5" mb="2">
-                Secure Transmission
-              </Text>
-              <Text as="p" size="3">
-                Data is transmitted securely using industry-standard protocols
-                to protect your privacy.
               </Text>
             </Card>
             <Card style={{ minWidth: 220, maxWidth: 300 }}>
