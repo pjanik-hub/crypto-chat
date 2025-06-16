@@ -7,8 +7,10 @@
   padding: 80px;
   gap: 64px;
   font-family: var(--font-geist-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
+
+  background: var(--color-background, #111);
+  color: var(--color-text, #fff);
+
 }
 
 .page button {
@@ -26,8 +28,6 @@
 
 @media (prefers-color-scheme: dark) {
   .page {
-    background: var(--color-background, #111);
-    color: var(--color-text, #fff);
   }
 }
 
