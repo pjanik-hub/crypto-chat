@@ -5,15 +5,46 @@ import { useState } from "react";
 import { Box, Button, Flex, Text, TextField, Avatar } from "@radix-ui/themes";
 
 export default function UserCard() {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [editing, setEditing] = useState(false);
   const [username, setUsername] = useState(session?.user?.name || "");
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSave = async () => {
     setSaving(true);
-    // TODO: Send PATCH/PUT request to your API to update username in DB
-    setEditing(false);
+    setError(null);
+
+    if (username.length > 50) {
+      setError("Name must be less than 50 characters");
+      setSaving(false);
+      return;
+    }
+
+    if (username.includes(" ")) {
+      setError("Name must not contain spaces");
+      setSaving(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/user/update-name", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: username }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setEditing(false);
+        // Optionally update session data in the client
+        update?.();
+      } else {
+        setError(data.error || "Failed to update name");
+      }
+    } catch {
+      setError("Failed to update name");
+    }
     setSaving(false);
   };
 
@@ -40,14 +71,6 @@ export default function UserCard() {
             <Button size="1" onClick={handleSave} disabled={saving}>
               Save
             </Button>
-            <Button
-              size="1"
-              variant="ghost"
-              onClick={() => setEditing(false)}
-              disabled={saving}
-            >
-              Cancel
-            </Button>
           </Flex>
         ) : (
           <Flex gap="4" align="center">
@@ -57,6 +80,7 @@ export default function UserCard() {
             </Button>
           </Flex>
         )}
+        {error && <Text color="red">{error}</Text>}
         <Button variant="outline" onClick={() => signOut()}>
           Logout
         </Button>
