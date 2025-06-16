@@ -1,7 +1,7 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Flex, Text, TextField, Avatar } from "@radix-ui/themes";
 
 export default function UserCard() {
@@ -10,6 +10,20 @@ export default function UserCard() {
   const [username, setUsername] = useState(session?.user?.name || "");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchUser() {
+      const res = await fetch("/api/user/me");
+
+      if (res.ok) {
+        const data = await res.json();
+        setUsername(data.user.name || "");
+      }
+    }
+    if (session?.user) fetchUser();
+    // Keeping this empty, allows this to be fetch upon mounting
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSave = async () => {
     setSaving(true);
