@@ -26,11 +26,6 @@
   margin-bottom: 3;
 }
 
-@media (prefers-color-scheme: dark) {
-  .page {
-  }
-}
-
 .main {
   display: flex;
   flex-direction: column;
